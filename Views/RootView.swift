@@ -13,17 +13,24 @@ struct RootView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack(spacing: 100) {
-                Text("This is the root view")
-                Button {
-                    viewModel.finishProfileViewIsActive = true
-                } label: {
-                    Text("Continue to View 2")
+            ZStack {
+                Image("rootView")
+                    .resizable()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .scaledToFill()
+                VStack(spacing: 100) {
+                    Text("This is the root view")
+                    Button {
+                        viewModel.finishProfileViewIsActive = true
+                    } label: {
+                        Text("Continue to View 2")
+                    }
+                    
                 }
-                
+                .navigationDestination(isPresented: $viewModel.finishProfileViewIsActive, destination: { View2().environment(viewModel)
+                })
             }
-            .navigationDestination(isPresented: $viewModel.finishProfileViewIsActive, destination: { View2().environment(viewModel)
-        })
+           
         }
     }
 }
